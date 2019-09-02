@@ -31,7 +31,7 @@ const timeTracker = ({ attendances, handleDelete }) => {
                         moment(attendance.created_at).from(attendance.updated_at, true) : moment(attendance.created_at).fromNow()
                     } </td>
                     <td>
-                        <button className="cta-delete" onClick={handleDelete}>Delete</button>
+                        <button className="cta-delete" onClick={() => handleDelete(attendance)}>Delete</button>
                     </td>
                   </tr>
                 )

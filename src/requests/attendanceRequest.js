@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 import {asyncActions} from '../utils/asynUtil'
-import {ATTENDANCES, CLOCK_OUT, CLOCK_IN} from '../actionTypes/attendanceActionType'
-import {attendanceConstants, clockOutConstant, clockInConstant} from '../constants/Constants'
+import {ATTENDANCES, CLOCK_OUT, CLOCK_IN, DELETE_ATTENDANCE} from '../actionTypes/attendanceActionType'
+import {attendanceConstants, clockOutConstant, clockInConstant, deleteAttendance} from '../constants/Constants'
 import {token} from '../helpers/Auth'
 
 export const fetchAllClockedEvents = () => dispatch => {
@@ -35,9 +35,20 @@ export const clockIn = (userId) => dispatch => {
   axios.post(clockInConstant.CLOCK_IN, {id: userId}, {headers: {Authorization: token()}})
     .then(response => {
       if (response.status === 201) {
-        console.log(response)
         dispatch(asyncActions(CLOCK_IN).success(response.data))
         dispatch(asyncActions(CLOCK_IN).loading(false))
+      }
+    })
+    .catch(error => dispatch(asyncActions(CLOCK_IN).failure(true, error.response.data.message)))
+}
+
+export const deleteTime = (id) => dispatch => {
+  dispatch(asyncActions(DELETE_ATTENDANCE).loading(true))
+  axios.delete(deleteAttendance(id).DELETE_ATTENDANCE, {headers: {Authorization: token()}})
+    .then(response => {
+      if (response.status === 200) {
+        dispatch({...asyncActions(DELETE_ATTENDANCE).success(response.data), id: id})
+        dispatch(asyncActions(DELETE_ATTENDANCE).loading(false))
       }
     })
     .catch(error => dispatch(asyncActions(CLOCK_IN).failure(true, error.response.data.message)))

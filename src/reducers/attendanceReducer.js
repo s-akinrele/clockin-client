@@ -1,9 +1,17 @@
 import {asyncActionName} from '../utils/asynUtil'
-import {ATTENDANCES, CLOCK_OUT, CLOCK_IN} from '../actionTypes/attendanceActionType'
+import {ATTENDANCES, CLOCK_OUT, CLOCK_IN, DELETE_ATTENDANCE} from '../actionTypes/attendanceActionType'
 
 import {SIGN_OUT} from '../actionTypes/userActionType'
 
-const initialState = {attendances: [], loading: false, error: false, errorMessage: null, attendance: {}, updating: false}
+const initialState = {
+  attendances: [],
+  loading: false,
+  error: false,
+  errorMessage: null,
+  attendance: {},
+  updating: false,
+  statusMessage: ''
+}
 
 const attendanceReducer = (state=initialState, action) => {
   switch (action.type) {
@@ -36,6 +44,15 @@ const attendanceReducer = (state=initialState, action) => {
 
     case SIGN_OUT:
       return {...initialState}
+
+    case asyncActionName(DELETE_ATTENDANCE).failure:
+      return {...state, error: action.payload.status, errorMessage: action.payload.error}
+
+    case asyncActionName(DELETE_ATTENDANCE).success:
+      return {...state, attendances: state.attendances.filter(attendance => attendance.id !== action.id), statusMessage: action.payload.message}
+
+    case asyncActionName(DELETE_ATTENDANCE).loading:
+      return {...state, loading: action.payload}
 
     default:
       return state

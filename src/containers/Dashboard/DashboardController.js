@@ -5,7 +5,12 @@ import Banner from '../../components/Banner'
 import TimeTracker from '../../components/TimeTracker/TimeTracker'
 
 import {currentUser, signOut} from '../../requests/userRequest'
-import {fetchAllClockedEvents, clockOut, clockIn} from '../../requests/attendanceRequest'
+import {
+  clockOut,
+  clockIn,
+  deleteTime,
+  fetchAllClockedEvents,
+} from '../../requests/attendanceRequest'
 
 import '../../styles/dashboard.scss'
 
@@ -50,18 +55,21 @@ class DashboardController extends Component {
     const {user} = this.props
     if (currentAttendance) {
       this.props.clockOut(currentAttendance.id, {status: 1})
-      this.props.fetchAllClockedEvents()
     } else {
       this.props.clockIn(user.id)
     }
   }
 
+  handleDelete = (attendance) => {
+    this.props.deleteTime(attendance.id)
+  }
+
   render() {
-    const {attendances} = this.props
+    const {attendances, user} = this.props
     return (
       <div className='dashboard-controller'>
         <Banner
-          name={this.props.user && this.props.user.user.first_name}
+          name={user && user.first_name}
           onSignOut={this.onSignOut}
         />
         <div className='time-tracker-wrapper'>
@@ -87,4 +95,7 @@ const mapStateToProps = state => ({
   attendances: state.attendances
 })
 
-export default connect(mapStateToProps, {currentUser, fetchAllClockedEvents, clockOut, clockIn, signOut})(DashboardController);
+export default connect(
+  mapStateToProps,
+  {currentUser, fetchAllClockedEvents, clockOut, clockIn, signOut, deleteTime}
+)(DashboardController);
