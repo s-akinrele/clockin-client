@@ -1,5 +1,17 @@
+@import './colors';
+
 .dashboard-controller {
   margin-top: 50px;
+
+  .no-clockins {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    background-color: $primary-color;
+    color: white;
+    padding: 1rem 0;
+    margin-top: 3rem;
+  }
 
   .time-tracker-wrapper {
     width: 90%;
@@ -7,15 +19,18 @@
 
     .time-tracker-column {
       text-align: center;
-      margin-bottom: 20px;
 
       .clock-in {
         padding: 10px 40px;
+        margin: 2rem 0;
         border-radius: 5px;
-        background: #594c4c;
+        background: rgba(121,190,67,1);
+        font-weight: bold;
         color: white;
+        height: 40px;
         font-weight: bold;
         font-size: 15px;
+        cursor: pointer;
       }
     }
   }
@@ -29,8 +44,29 @@
 
   th, td {
     text-align: center;
+    width: 20%;
     padding: 8px;
   }
 
   tr:nth-child(even){background-color: #f2f2f2}
+
+  .sign-out {
+    color: white;
+    border: 0;
+    background-color: transparent;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .cta-delete {
+    background: rgba(121,190,67,1);
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 0.4rem 0.5rem;
+    width: 40%;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
 }

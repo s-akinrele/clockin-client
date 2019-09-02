@@ -1,6 +1,8 @@
 import {asyncActionName} from '../utils/asynUtil'
 import {ATTENDANCES, CLOCK_OUT, CLOCK_IN} from '../actionTypes/attendanceActionType'
 
+import {SIGN_OUT} from '../actionTypes/userActionType'
+
 const initialState = {attendances: [], loading: false, error: false, errorMessage: null, attendance: {}, updating: false}
 
 const attendanceReducer = (state=initialState, action) => {
@@ -23,6 +25,10 @@ const attendanceReducer = (state=initialState, action) => {
       return {...state, attendance: action.payload.attendance, attendances: [...state.attendances, action.payload.attendance]}
     case asyncActionName(CLOCK_IN).loading:
       return {...state, loading: action.payload}
+
+    case SIGN_OUT:
+      return {...initialState}
+
     default:
       return state
   }

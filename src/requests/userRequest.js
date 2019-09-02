@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import {asyncActions} from '../utils/asynUtil'
-import {LOG_IN, SIGN_UP, CURRENT_USER} from '../actionTypes/userActionType'
+import {LOG_IN, SIGN_UP, CURRENT_USER, SIGN_OUT} from '../actionTypes/userActionType'
 import {authConstants} from '../constants/Constants'
 import {token} from '../helpers/Auth'
 
@@ -11,6 +11,7 @@ export const loginUser = (user) => dispatch => {
   axios.post(authConstants.LOG_IN, user)
     .then((response) => {
       if (response.status === 200) {
+        localStorage.setItem('token', response.data.auth_token);
         dispatch(asyncActions(LOG_IN).success(response.data))
         dispatch(asyncActions(LOG_IN).loading(false))
       }
@@ -24,6 +25,7 @@ export const signupUser = (user) => dispatch => {
   axios.post(authConstants.SIGN_UP, user)
     .then(response => {
       if (response.status === 201) {
+        localStorage.setItem('token', response.data.auth_token);
         dispatch(asyncActions(SIGN_UP).success(response.data))
         dispatch(asyncActions(SIGN_UP).loading(false))
       }
@@ -34,7 +36,7 @@ export const signupUser = (user) => dispatch => {
 export const currentUser = () => dispatch => {
   dispatch(asyncActions(CURRENT_USER).loading(true))
 
-  axios.get(authConstants.CURRENT_USER, {headers: {Authorization: token}})
+  axios.get(authConstants.CURRENT_USER, {headers: {Authorization: token()}})
     .then(response => {
       if (response.status === 200) {
         dispatch(asyncActions(CURRENT_USER).success(response.data))
@@ -42,4 +44,9 @@ export const currentUser = () => dispatch => {
       }
     })
     .catch(error => dispatch(asyncActions(CURRENT_USER).failure(true, error.response.data.message)))
+}
+
+export const signOut = () => dispatch => {
+  localStorage.removeItem('token')
+  dispatch({type: SIGN_OUT})
 }

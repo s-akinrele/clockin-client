@@ -4,9 +4,8 @@ import {connect} from 'react-redux'
 import Banner from '../../components/Banner'
 import TimeTracker from '../../components/TimeTracker/TimeTracker'
 
-import {currentUser} from '../../requests/userRequest'
+import {currentUser, signOut} from '../../requests/userRequest'
 import {fetchAllClockedEvents, clockOut, clockIn} from '../../requests/attendanceRequest'
-import {logout} from '../../helpers/Auth'
 
 import '../../styles/dashboard.scss'
 
@@ -35,8 +34,15 @@ class DashboardController extends Component {
     return null;
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.attendances.attendance && prevProps.attendances.attendance.status !== this.props.attendances.attendance.status) {
+      this.props.fetchAllClockedEvents()
+    }
+  }
+
   onSignOut = () => {
-    logout(() => this.props.history.push('/'))
+    this.props.signOut()
+    this.props.history.push('/')
   }
 
   createOrUpdateAttendance = () => {
@@ -65,7 +71,10 @@ class DashboardController extends Component {
               </button>
             </div>
 
-          <TimeTracker attendances={attendances.attendances}/>
+          <TimeTracker
+            attendances={attendances.attendances}
+            handleDelete={this.handleDelete}
+          />
         </div>
       </div>
     )
@@ -78,4 +87,4 @@ const mapStateToProps = state => ({
   attendances: state.attendances
 })
 
-export default connect(mapStateToProps, {currentUser, fetchAllClockedEvents, clockOut, clockIn})(DashboardController);
+export default connect(mapStateToProps, {currentUser, fetchAllClockedEvents, clockOut, clockIn, signOut})(DashboardController);

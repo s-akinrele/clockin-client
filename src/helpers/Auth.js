@@ -1,11 +1,3 @@
-export const isLoggedIn = () => {
-  if (localStorage.getItem('token') !== null) return true;
-  return false;
-}
+export const isLoggedIn = () => localStorage.getItem('token') !== null
 
-export const token = localStorage.getItem('token');
-
-export const logout = (cb) => {
-  localStorage.removeItem('token');
-  cb();
-}
+export const token = () => localStorage.getItem('token');
