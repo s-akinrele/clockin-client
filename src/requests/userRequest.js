@@ -22,7 +22,6 @@ export const signupUser = (user) => dispatch => {
 
   axios.post(authConstants.SIGN_UP, user)
   .then(response => {
-    console.log(response)
     if (response.status === 201) {
       dispatch(asyncActions(SIGN_UP).success(response.data))
       dispatch(asyncActions(SIGN_UP).loading(false))
