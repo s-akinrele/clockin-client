@@ -1,4 +1,5 @@
 import React from 'react'
+import moment from 'moment'
 
 const timeTracker = ({attendances}) => {
   return (
@@ -11,13 +12,15 @@ const timeTracker = ({attendances}) => {
             <tr>
               <th>Date</th>
               <th>Status</th>
+              <th>Duration</th>
               <th>Actions</th>
             </tr>
             { attendances.map((attendance, key) => {
               return (
                 <tr key={key}>
-                  <td> {attendance.created_at} </td>
+                  <td> {moment(attendance.created_at).format("dddd, MMMM Do YYYY, h:mm:ss a")} </td>
                   <td> {attendance.status} </td>
+                  <td> {moment(attendance.created_at).fromNow()} </td>
                   <td> Actions buttons </td>
                 </tr>
               )

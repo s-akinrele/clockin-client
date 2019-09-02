@@ -13,6 +13,8 @@ import '../../styles/dashboard.scss'
 class DashboardController extends Component {
   constructor() {
     super()
+
+    this.state = {currentAttendance: null}
   }
 
   componentDidMount() {
@@ -20,8 +22,25 @@ class DashboardController extends Component {
     this.props.fetchAllClockedEvents()
   }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {attendances} = nextProps.attendances
+
+    if (attendances.length) {
+      return {
+        currentAttendance: attendances.find(attendance => attendance.status === 'in'),
+      };
+    }
+
+    // Return null if the state hasn't changed
+    return null;
+  }
+
   onSignOut = () => {
     logout(() => this.props.history.push('/'))
+  }
+
+  createOrUpdateAttendance = () => {
+    console.log('okay')
   }
 
   render() {
@@ -33,7 +52,11 @@ class DashboardController extends Component {
           onSignOut={this.onSignOut}
         />
         <div className='time-tracker-wrapper'>
-            <div className='time-tracker-column'><button className='clock-in'>CLOCK IN</button></div>
+            <div className='time-tracker-column'>
+              <button className='clock-in' onClick={this.createOrUpdateAttendance}>
+                {this.state.currentAttendance ? 'CLOCK OUT': 'CLOCK IN'}
+              </button>
+            </div>
 
           <TimeTracker attendances={attendances.attendances}/>
         </div>
