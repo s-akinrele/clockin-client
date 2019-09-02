@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import SignInController from '../../components/Auth/SignIn';
 import SignUpController from '../../components/Auth/SignUp';
 
+import './authController.scss'
 class AuthController extends Component {
   constructor() {
     super();

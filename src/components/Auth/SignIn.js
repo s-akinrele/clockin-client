@@ -8,7 +8,7 @@ const signIn = ({handleChange, handleLogin, onChangeMode}) => {
   }
 
   return (
-    <div className='auth'>
+    <div className='auth-controller'>
       <div className='auth-card'>
         <div className="form-group">
           <label> Email </label>
@@ -30,8 +30,10 @@ const signIn = ({handleChange, handleLogin, onChangeMode}) => {
             onChange={handleChange}
           />
         </div>
-        <button className="btn btn-primary auth-btn" onClick={handleLogin}>Sign in</button>
-        <div className="form-text"> or <Link to="#" className="card-link" onClick={handleClick}>Sign up</Link></div>
+        <div className='call-to-action'>
+          <button className="btn btn-primary auth-btn" onClick={handleLogin}>Sign in</button>
+          <div className="form-text"> or <Link to="#" className="card-link" onClick={handleClick}>Sign up</Link></div>
+        </div>
       </div>
     </div>
   )
