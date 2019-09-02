@@ -1,0 +1,29 @@
+@import './colors';
+
+.banner {
+  transition: all 0.5s ease-in-out;
+
+  // nav custom
+  margin-top: 0px;
+  padding: 10px 0px;
+  background-color: $primary-color;
+  box-shadow: 0 10px 33px rgba(0, 0, 0, .1);
+  color: #fff;
+
+  // fixed top
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+
+
+  @media (min-width: 600px)  {
+    z-index: 1030;
+  }
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 20px;
+  }
+}
