@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import SignInController from '../../components/Auth/SignIn';
 import SignUpController from '../../components/Auth/SignUp';
 
-class Auth extends Component {
+class AuthController extends Component {
   constructor() {
     super();
     this.state = {
@@ -72,4 +72,4 @@ class Auth extends Component {
   }
 }
 
-export default Auth;
+export default AuthController;
