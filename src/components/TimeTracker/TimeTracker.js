@@ -20,8 +20,13 @@ const timeTracker = ({attendances}) => {
                 <tr key={key}>
                   <td> {moment(attendance.created_at).format("dddd, MMMM Do YYYY, h:mm:ss a")} </td>
                   <td> {attendance.status} </td>
-                  <td> {moment(attendance.created_at).fromNow()} </td>
-                  <td> Actions buttons </td>
+                  <td> {
+                    attendance.status === 'out' ?
+                      moment(attendance.created_at).from(attendance.updated_at, true) : moment(attendance.created_at).fromNow()
+                    } </td>
+                  <td>
+                    <Link>Delete</Link>
+                  </td>
                 </tr>
               )
             })}

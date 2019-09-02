@@ -5,7 +5,7 @@ import Banner from '../../components/Banner'
 import TimeTracker from '../../components/TimeTracker/TimeTracker'
 
 import {currentUser} from '../../requests/userRequest'
-import {fetchAllClockedEvents, clockOut} from '../../requests/attendanceRequest'
+import {fetchAllClockedEvents, clockOut, clockIn} from '../../requests/attendanceRequest'
 import {logout} from '../../helpers/Auth'
 
 import '../../styles/dashboard.scss'
@@ -41,10 +41,12 @@ class DashboardController extends Component {
 
   createOrUpdateAttendance = () => {
     const {currentAttendance} = this.state
+    const {user} = this.props
     if (currentAttendance) {
       this.props.clockOut(currentAttendance.id, {status: 1})
+      this.props.fetchAllClockedEvents()
     } else {
-      console.log('do something else')
+      this.props.clockIn(user.id)
     }
   }
 
@@ -76,4 +78,4 @@ const mapStateToProps = state => ({
   attendances: state.attendances
 })
 
-export default connect(mapStateToProps, {currentUser, fetchAllClockedEvents, clockOut})(DashboardController);
+export default connect(mapStateToProps, {currentUser, fetchAllClockedEvents, clockOut, clockIn})(DashboardController);

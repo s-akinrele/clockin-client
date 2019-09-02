@@ -12,4 +12,4 @@ export const attendanceConstants = {
 
 export const clockOutConstant = (id) => ({CLOCK_OUT: `${BASE_URL}/attendances/${id}`})
 
-export const clockInConstant = (id) => ({CLOCK_IN: `${BASE_URL}/attendances/${id}`})
+export const clockInConstant = {CLOCK_IN: `${BASE_URL}/attendances`}
