@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import SignInController from '../../components/Auth/SignIn';
 import SignUpController from '../../components/Auth/SignUp';
 
+import {loginUser, signupUser} from '../../requests/userRequest'
+
 import './authController.scss'
 class AuthController extends Component {
   constructor() {
@@ -22,7 +24,6 @@ class AuthController extends Component {
 
 
   handleChange = (event) => {
-    // event.preventDefault();
     const field = event.target.name;
     const user = this.state.user;
     user[field] = event.target.value;
@@ -31,12 +32,10 @@ class AuthController extends Component {
   }
 
   handleSignUp = () => {
-    // event.preventDefault();
     this.props.signupUser(this.state.user);
   }
 
   handleLogin = () => {
-    // event.preventDefault();
     this.props.loginUser(this.state.user)
   }
 
@@ -73,4 +72,8 @@ class AuthController extends Component {
   }
 }
 
-export default AuthController;
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+export default connect(mapStateToProps, {loginUser, signupUser})(AuthController);

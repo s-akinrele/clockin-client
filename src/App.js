@@ -1,19 +1,26 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import {createStore, applyMiddleware} from 'redux';
+import {Provider} from 'react-redux';
+import {createLogger} from 'redux-logger';
+import thunk from 'redux-thunk';
 
 import Aux from './hoc/Aux';
-// import Auth from './containers/Auth/Auth';
+import rootReducer from './reducers';
 import AuthController from './containers/Auth/AuthController';
 
+const store = createStore(rootReducer, applyMiddleware(thunk, createLogger()))
 function App() {
   return (
-    <Aux>
-      <BrowserRouter>
-        <Switch>
-          <Route path='/' exact component={AuthController} />
-        </Switch>
-      </BrowserRouter>
-    </Aux>
+    <Provider store={store}>
+      <Aux>
+        <BrowserRouter>
+          <Switch>
+            <Route path='/' exact component={AuthController} />
+          </Switch>
+        </BrowserRouter>
+      </Aux>
+    </Provider>
   );
 }
 
