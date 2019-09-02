@@ -6,8 +6,10 @@ import {createLogger} from 'redux-logger';
 import thunk from 'redux-thunk';
 
 import Aux from './hoc/Aux';
+import PrivateRoute from './components/Auth/PrivateRoute'
 import rootReducer from './reducers';
 import AuthController from './containers/Auth/AuthController';
+import DashboardController from './containers/Dashboard/DashboardController'
 
 const store = createStore(rootReducer, applyMiddleware(thunk, createLogger()))
 function App() {
@@ -17,6 +19,7 @@ function App() {
         <BrowserRouter>
           <Switch>
             <Route path='/' exact component={AuthController} />
+            <PrivateRoute path='/dashboard' component={DashboardController} />
           </Switch>
         </BrowserRouter>
       </Aux>

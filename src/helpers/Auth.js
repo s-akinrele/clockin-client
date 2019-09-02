@@ -13,10 +13,3 @@ export const logout = (cb) => {
   localStorage.removeItem('user');
   cb();
 }
-
-export const checkAuth = (nextState, replace, callback) => {
-  if (!isLoggedIn()) {
-    replace('/');
-  }
-  return callback();
-};

@@ -5,6 +5,7 @@ import SignInController from '../../components/Auth/SignIn';
 import SignUpController from '../../components/Auth/SignUp';
 
 import {loginUser, signupUser} from '../../requests/userRequest'
+import { isLoggedIn } from '../../helpers/Auth'
 
 import './authController.scss'
 class AuthController extends Component {
@@ -22,6 +23,18 @@ class AuthController extends Component {
     }
   }
 
+  componentDidMount() {
+    if (isLoggedIn()) {
+      this.props.history.push('/dashboard');
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.user.token !== this.props.user.token) {
+      localStorage.setItem('token', this.props.user.token);
+      this.props.history.push('/dashboard');
+    }
+  }
 
   handleChange = (event) => {
     const field = event.target.name;
