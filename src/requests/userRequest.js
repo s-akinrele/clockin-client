@@ -30,15 +30,3 @@ export const signupUser = (user) => dispatch => {
   })
   .catch(error => dispatch(asyncActions(SIGN_UP).failure(true, error.response.data.message)));
 }
-
-// export const userTodos = (userId, token) => dispatch => {
-//   dispatch(asyncActions(USER_TODOS).loading(true))
-//   axios.get(todoConstants(userId).USER_TODOS, { headers: { Authorization: token } })
-//     .then(response => {
-//       if (response.status === 200) {
-//         dispatch(asyncActions(USER_TODOS).success(response.data))
-//         dispatch(asyncActions(USER_TODOS).loading(false))
-//       }
-//     })
-//     .catch(error => dispatch(asyncActions(USER_TODOS).failure(true, error.response.data.message)));
-// }
