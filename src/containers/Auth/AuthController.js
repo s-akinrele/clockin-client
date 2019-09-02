@@ -7,7 +7,7 @@ import SignUpController from '../../components/Auth/SignUp';
 import {loginUser, signupUser} from '../../requests/userRequest'
 import { isLoggedIn } from '../../helpers/Auth'
 
-import './authController.scss'
+import '../../styles/authController.scss'
 class AuthController extends Component {
   constructor() {
     super();

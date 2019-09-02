@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import {asyncActions} from '../utils/asynUtil'
-import {LOG_IN, SIGN_UP} from '../actionTypes/userActionType'
+import {LOG_IN, SIGN_UP, CURRENT_USER} from '../actionTypes/userActionType'
 import {authConstants} from '../constants/Constants'
 
 export const loginUser = (user) => dispatch => {
@@ -28,4 +28,17 @@ export const signupUser = (user) => dispatch => {
     }
   })
   .catch(error => dispatch(asyncActions(SIGN_UP).failure(true, error.response.data.message)));
+}
+
+export const currentUser = () => dispatch => {
+  dispatch(asyncActions(CURRENT_USER).loading(true))
+  const token = localStorage.getItem('token')
+  axios.get(authConstants.CURRENT_USER, {headers: {Authorization: token}})
+  .then(response => {
+    if (response.status == 200) {
+      dispatch(asyncActions(CURRENT_USER).success(response.data))
+      dispatch(asyncActions(CURRENT_USER).loading(false))
+    }
+  })
+  .catch(error => dispatch(asyncActions(CURRENT_USER).failure(true, error.response.data.message)))
 }
