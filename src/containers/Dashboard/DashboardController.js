@@ -1,9 +1,11 @@
-import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import React, { Component } from 'react'
+import {connect} from 'react-redux'
 
 import Banner from '../../components/Banner'
+import TimeTracker from '../../components/TimeTracker/TimeTracker'
 
 import {currentUser} from '../../requests/userRequest'
+import {fetchAllClockedEvents} from '../../requests/attendanceRequest'
 import {logout} from '../../helpers/Auth'
 
 import '../../styles/dashboard.scss'
@@ -15,6 +17,7 @@ class DashboardController extends Component {
 
   componentDidMount() {
     this.props.currentUser()
+    this.props.fetchAllClockedEvents()
   }
 
   onSignOut = () => {
@@ -22,6 +25,7 @@ class DashboardController extends Component {
   }
 
   render() {
+    const {attendances} = this.props
     return (
       <div className='dashboard-controller'>
         <Banner
@@ -30,23 +34,8 @@ class DashboardController extends Component {
         />
         <div className='time-tracker-wrapper'>
             <div className='time-tracker-column'><button className='clock-in'>CLOCK IN</button></div>
-            <div>
-              <div className='all-clockins'>
-                <table className='clock-in-table'>
-                  <tr>
-                    <th>Date</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-                  <tr>
-                    <td> Something </td>
-                    <td> Something </td>
-                    <td> Something </td>
-                  </tr>
-                </table>
-              </div>
-            </div>
 
+          <TimeTracker attendances={attendances.attendances}/>
         </div>
       </div>
     )
@@ -55,7 +44,8 @@ class DashboardController extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  attendances: state.attendances
 })
 
-export default connect(mapStateToProps, {currentUser})(DashboardController);
+export default connect(mapStateToProps, {currentUser, fetchAllClockedEvents})(DashboardController);
