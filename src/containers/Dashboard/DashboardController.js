@@ -66,6 +66,7 @@ class DashboardController extends Component {
 
   render() {
     const {attendances, user} = this.props
+    const allAttendances = attendances.attendances
     return (
       <div className='dashboard-controller'>
         <Banner
@@ -78,9 +79,9 @@ class DashboardController extends Component {
                 {this.state.currentAttendance ? 'CLOCK OUT': 'CLOCK IN'}
               </button>
             </div>
-
+          { attendances.statusMessage && <div className='notice'>{attendances.statusMessage}</div>}
           <TimeTracker
-            attendances={attendances.attendances}
+            attendances={allAttendances}
             handleDelete={this.handleDelete}
           />
         </div>
