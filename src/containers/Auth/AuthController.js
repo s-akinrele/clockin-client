@@ -8,6 +8,7 @@ import { loginUser, signupUser } from '../../requests/userRequest'
 import { isLoggedIn } from '../../helpers/Auth'
 
 import '../../styles/authController.scss'
+
 class AuthController extends Component {
   constructor() {
     super();
@@ -64,6 +65,7 @@ class AuthController extends Component {
           handleLogin={this.handleLogin}
           error={user.error}
           errorMessage={user.errorMessage}
+          loading={user.loading}
         />
       );
     } else {
@@ -74,6 +76,7 @@ class AuthController extends Component {
           handleSignUp={this.handleSignUp}
           error={user.error}
           errorMessage={user.errorMessage}
+          loading={user.loading}
         />
       );
     }

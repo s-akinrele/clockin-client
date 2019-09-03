@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-
-
+import Loader from '../../assets/icons/loader.gif'
 class SignInController extends Component {
   handleClick = () => {
     this.props.onChangeMode('sign-up');
   }
 
   render() {
-    const {handleChange, handleLogin, error, errorMessage} = this.props
+    const {handleChange, handleLogin, error, errorMessage, loading} = this.props
     return (
       <div className='auth-controller'>
         <h1 className="auth-introduction-text">CLOCKIN EASY</h1>
@@ -35,7 +34,7 @@ class SignInController extends Component {
             />
           </div>
           <div className='call-to-action'>
-            <button className="btn btn-primary auth-btn" onClick={handleLogin}>SIGN IN</button>
+            <button className="btn btn-primary auth-btn" onClick={handleLogin}>{loading ? <img src={Loader} alt='...loading' height='20' width='20' /> : 'SIGN IN'}</button>
             <div className="form-text"> or <Link to="#" className="card-link" onClick={this.handleClick}>SIGN UP</Link></div>
           </div>
         </div>

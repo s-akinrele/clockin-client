@@ -16,7 +16,10 @@ export const loginUser = (user) => dispatch => {
         dispatch(asyncActions(LOG_IN).loading(false))
       }
     })
-    .catch((error) => dispatch(asyncActions(LOG_IN).failure(true, error.response.data.message)));
+    .catch(error => {
+      dispatch(asyncActions(LOG_IN).failure(true, error.response.data.message))
+      dispatch(asyncActions(LOG_IN).loading(false))
+    });
 }
 
 export const signupUser = (user) => dispatch => {
@@ -30,7 +33,10 @@ export const signupUser = (user) => dispatch => {
         dispatch(asyncActions(SIGN_UP).loading(false))
       }
     })
-    .catch(error => dispatch(asyncActions(SIGN_UP).failure(true, error.response.data.message)));
+    .catch(error => {
+      dispatch(asyncActions(SIGN_UP).failure(true, error.response.data.message))
+      dispatch(asyncActions(SIGN_UP).loading(false))
+    });
 }
 
 export const currentUser = () => dispatch => {
@@ -43,7 +49,10 @@ export const currentUser = () => dispatch => {
         dispatch(asyncActions(CURRENT_USER).loading(false))
       }
     })
-    .catch(error => dispatch(asyncActions(CURRENT_USER).failure(true, error.response.data.message)))
+    .catch(error => {
+      dispatch(asyncActions(CURRENT_USER).failure(true, error.response.data.message))
+      dispatch(asyncActions(CURRENT_USER).loading(false))
+    })
 }
 
 export const signOut = () => dispatch => {
