@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
-import Loader from '../../assets/icons/loader.gif'
+
 class SignInController extends Component {
   handleClick = () => {
     this.props.onChangeMode('sign-up');
@@ -35,7 +35,7 @@ class SignInController extends Component {
             />
           </div>
           <div className='call-to-action'>
-            <button className="btn btn-primary auth-btn" onClick={handleLogin}>{loading ? <img src={Loader} alt='...loading' height='20' width='20' /> : 'SIGN IN'}</button>
+            <button className="btn btn-primary auth-btn" onClick={handleLogin}>{loading ? '...LOADING' : 'SIGN IN'}</button>
             <div className="form-text"> or <Link to="#" className="card-link" onClick={this.handleClick}>SIGN UP</Link></div>
           </div>
         </div>
