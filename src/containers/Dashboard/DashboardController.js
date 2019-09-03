@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
 import Banner from '../../components/Banner'
 import TimeTracker from '../../components/TimeTracker/TimeTracker'
@@ -32,11 +33,11 @@ class DashboardController extends Component {
     if (attendances.length) {
       return {
         currentAttendance: attendances.find(attendance => attendance.status === 'in'),
-      };
+      }
     }
 
     // Return null if the state hasn't changed
-    return null;
+    return null
   }
 
   componentDidUpdate(prevProps) {
@@ -95,6 +96,15 @@ const mapStateToProps = state => ({
   user: state.user,
   attendances: state.attendances
 })
+
+DashboardController.propTypes = {
+  currentUser: PropTypes.func,
+  fetchAllClockedEvents: PropTypes.func,
+  clockOut: PropTypes.func,
+  clockIn: PropTypes.func,
+  deleteTime: PropTypes.func,
+  attendances: PropTypes.array
+}
 
 export default connect(
   mapStateToProps,

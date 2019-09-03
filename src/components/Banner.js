@@ -1,8 +1,9 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import '../styles/banner.scss'
 
-const banner = ({ name, onSignOut }) => {
+const Banner = ({ name, onSignOut }) => {
   return (
     <div className='banner'>
       <div className='container'>
@@ -16,4 +17,9 @@ const banner = ({ name, onSignOut }) => {
   )
 }
 
-export default banner;
+Banner.propTypes = {
+  name: PropTypes.string,
+  onSignOut: PropTypes.func
+}
+
+export default Banner

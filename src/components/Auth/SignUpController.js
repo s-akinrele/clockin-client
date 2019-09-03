@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
 import Loader from '../../assets/icons/loader.gif'
 class SignUpController extends Component {
   handleClick = () => {
-    this.props.onChangeMode('sign-in');
+    this.props.onChangeMode('sign-in')
   }
 
   render() {
@@ -71,6 +72,15 @@ class SignUpController extends Component {
       </div>
     )
   }
+}
+
+SignUpController.propTypes = {
+  error: PropTypes.bool,
+  errorMessage: PropTypes.string,
+  handleChange: PropTypes.func,
+  handleSignUp: PropTypes.func,
+  loading: PropTypes.bool,
+  onChangeMode: PropTypes.func
 }
 
 export default SignUpController;

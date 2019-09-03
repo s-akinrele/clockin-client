@@ -1,8 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 
-import SignInController from '../../components/Auth/SignInController';
-import SignUpController from '../../components/Auth/SignUpController';
+import SignInController from '../../components/Auth/SignInController'
+import SignUpController from '../../components/Auth/SignUpController'
 
 import { loginUser, signupUser } from '../../requests/userRequest'
 import { isLoggedIn } from '../../helpers/Auth'
@@ -97,5 +98,12 @@ class AuthController extends Component {
 const mapStateToProps = state => ({
   user: state.user
 })
+
+AuthController.propTypes = {
+  history: PropTypes.object,
+  loginUser: PropTypes.func,
+  signupUser: PropTypes.func,
+  user: PropTypes.object
+}
 
 export default connect(mapStateToProps, { loginUser, signupUser })(AuthController);

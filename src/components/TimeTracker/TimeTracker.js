@@ -1,7 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import moment from 'moment'
 
-const timeTracker = ({ attendances, handleDelete }) => {
+const TimeTracker = ({ attendances, handleDelete }) => {
   return (
     <div className='time-tracker'>
       {!attendances.length &&
@@ -44,4 +45,9 @@ const timeTracker = ({ attendances, handleDelete }) => {
   )
 }
 
-export default timeTracker;
+TimeTracker.propTypes = {
+  attendances: PropTypes.array,
+  handleDelete: PropTypes.func
+}
+
+export default TimeTracker

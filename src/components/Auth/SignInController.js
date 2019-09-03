@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import Loader from '../../assets/icons/loader.gif'
 class SignInController extends Component {
@@ -41,6 +42,16 @@ class SignInController extends Component {
       </div>
     )
   }
- }
+}
+
+SignInController.propTypes = {
+  error: PropTypes.bool,
+  errorMessage: PropTypes.string,
+  handleChange: PropTypes.func,
+  handleLogin: PropTypes.func,
+  loading: PropTypes.bool,
+  onChangeMode: PropTypes.func
+}
+
 
 export default SignInController;
